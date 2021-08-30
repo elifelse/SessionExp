@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SessionExp.Models;
 using System;
@@ -28,7 +29,7 @@ namespace SessionExp.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+                HttpContext.Session.SetString("ad", kisi.Ad);
                 return RedirectToAction(nameof(Index));
             }
 

@@ -23,6 +23,14 @@ namespace SessionExp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession(x => 
+            {
+                x.IdleTimeout = TimeSpan.FromSeconds(10);
+                x.Cookie.HttpOnly = true;
+                x.Cookie.IsEssential = true;
+            });
+
             services.AddControllersWithViews();
         }
 
@@ -45,6 +53,8 @@ namespace SessionExp
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession(); // uygulama için session'ý aktif eder
 
             app.UseEndpoints(endpoints =>
             {
