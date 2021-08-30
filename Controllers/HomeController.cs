@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SessionExp.Controllers
@@ -30,6 +31,21 @@ namespace SessionExp.Controllers
             if (ModelState.IsValid)
             {
                 HttpContext.Session.SetString("ad", kisi.Ad);
+
+                // ad'ı session'da bir liste içine ekle
+                string kisilerJson = HttpContext.Session.GetString("kisiler");
+
+                // eğer liste henüz oluşmamışsa
+                if (string.IsNullOrEmpty(kisilerJson))
+                {
+                    kisilerJson = JsonSerializer.Serialize(new List<Kisi>());
+                    HttpContext.Session.SetString("kisiler", kisilerJson);
+                }
+
+                List<Kisi> kisiler = JsonSerializer.Deserialize<List<Kisi>>(kisilerJson);
+                kisiler.Add(kisi);
+                HttpContext.Session.SetString("kisiler", JsonSerializer.Serialize(kisiler));
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -38,7 +54,7 @@ namespace SessionExp.Controllers
 
         public IActionResult Unut()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Clear(); // uygulamadaki session datasını siler ancak session cookie'sini kaldırmaz
             return RedirectToAction(nameof(Index));
         }
 

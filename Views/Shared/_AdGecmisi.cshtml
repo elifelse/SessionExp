@@ -1,0 +1,17 @@
+﻿@using System.Text.Json
+@using Microsoft.AspNetCore.Http
+@{
+    string kisilerJson = Context.Session.GetString("kisiler");
+    List<Kisi> kisiler;
+    if (string.IsNullOrEmpty(kisilerJson))
+        kisiler = new List<Kisi>();
+    else
+        kisiler = JsonSerializer.Deserialize<List<Kisi>>(kisilerJson);
+}
+
+<ul>
+    @foreach (Kisi kisi in kisiler)
+    {
+        <li>@kisi.Ad</li>
+    }
+</ul>
