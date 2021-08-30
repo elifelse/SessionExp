@@ -1,0 +1,23 @@
+﻿@model Kisi
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<form asp-controller="Home" asp-action="Index" class="form-inline" method="post">
+    <div class="form-group">
+        <label asp-for="Ad" class="form-control-plaintext"></label>
+    </div>
+    <div class="form-group ml-2">
+        <input asp-for="Ad" class="form-control" />
+    </div>
+    <div class="form-group">
+        <span asp-validation-for="Ad" class="form-control-plaintext text-danger"></span>
+    </div>
+    <button class="btn btn-primary ml-2">Gönder</button>
+</form>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
