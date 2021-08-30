@@ -36,6 +36,12 @@ namespace SessionExp.Controllers
             return View();
         }
 
+        public IActionResult Unut()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(Index));
+        }
+
         public IActionResult Privacy()
         {
             return View();

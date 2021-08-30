@@ -2,6 +2,7 @@
 @model Kisi
 @{
     ViewData["Title"] = "Home Page";
+    string ad = @Context.Session.GetString("ad");
 }
 
 <form asp-controller="Home" asp-action="Index" class="form-inline" method="post">
@@ -18,6 +19,13 @@
 </form>
 
 <div class="text-center">
-    <h1 class="display-4">Welcome @Context.Session.GetString("ad")</h1>
+    <h1 class="display-4">Hoşgeldin 
+    
+    @if (!string.IsNullOrEmpty(ad))
+    {
+        @ad <small>(<a asp-controller="Home" asp-action="Unut">Beni Unut</a>)</small>
+    }
+
+    </h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

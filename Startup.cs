@@ -26,7 +26,7 @@ namespace SessionExp
             services.AddDistributedMemoryCache();
             services.AddSession(x => 
             {
-                x.IdleTimeout = TimeSpan.FromSeconds(10);
+                x.IdleTimeout = TimeSpan.FromMinutes(15); // session verilerinin saklanacaðý süre
                 x.Cookie.HttpOnly = true;
                 x.Cookie.IsEssential = true;
             });
